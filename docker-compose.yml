@@ -1,0 +1,77 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_DB=kepas
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d kepas"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6380:6379"
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - "1026:1025" # SMTP server
+      - "8026:8025" # Web UI
+
+  app:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    expose:
+      - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      mailhog:
+        condition: service_started
+    env_file:
+      - ./backend/.env
+    command: ["/bin/sh", "-c", "while ! pg_isready -h db -p 5432 -U $${DB_USER} -d $${DB_DATABASE}; do echo waiting for database; sleep 2; done; exec npm start"]
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - app
+
+  strapi:
+    image: strapi/strapi:3.6.8
+    ports:
+      - "1337:1337"
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: kepas
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: password
+      DATABASE_SSL: "false"
+    volumes:
+      - ./strapi:/srv/app
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

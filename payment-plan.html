@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEPAS - Pricing Section</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins and Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Define brand colors as CSS custom properties for reliability */
+        :root {
+            --kepas-navy: #1E2A38;
+            --kepas-green: #2ECC71;
+            --kepas-green-hover: #25a25a;
+            --kepas-gray: #F4F4F4;
+            --kepas-dark-gray: #334155;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFFFF;
+            color: var(--kepas-dark-gray);
+        }
+        
+        .font-poppins {
+             font-family: 'Poppins', sans-serif;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Animation classes for scroll effects */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.6, 0.2, 0.4, 1), transform 0.8s cubic-bezier(0.6, 0.2, 0.4, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Section 4: PRICING -->
+    <section id="pricing" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <div class="text-center max-w-3xl mx-auto reveal">
+                <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">Find the Perfect Plan for Your Organization</h2>
+                <p class="mt-4 text-lg text-slate-700">Transparent pricing designed for value and impact. No hidden fees.</p>
+            </div>
+
+            <div class="mt-12 grid lg:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Pricing Card 1: Starter -->
+                <div class="bg-[var(--kepas-gray)] rounded-xl p-8 flex flex-col border-2 border-transparent reveal relative hover:border-[var(--kepas-green)]/50 transition-colors duration-300">
+                    <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Starter Presence</h3>
+                    <p class="font-roboto mt-2 text-slate-600">Ideal for small clinics & private schools.</p>
+                    <p class="font-poppins font-bold text-4xl text-[var(--kepas-navy)] my-6">KSh 30,000</p>
+                    <ul class="space-y-4 text-slate-700 flex-grow">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>1-3 Pages</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Mobile-Friendly Design</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>1 Year Hosting & Domain</li>
+                    </ul>
+                    <div class="mt-8">
+                        <button data-modal-target="starter-modal" class="modal-open-button block w-full text-center bg-[var(--kepas-navy)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-dark-gray)] transition duration-300">View Plan Details</button>
+                    </div>
+                </div>
+                
+                <!-- Pricing Card 2: Professional (Highlighted) -->
+                <div class="bg-[var(--kepas-navy)] text-white rounded-xl shadow-2xl p-8 flex flex-col ring-4 ring-[var(--kepas-green)] relative reveal">
+                    <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[var(--kepas-green)] text-[var(--kepas-navy)] font-poppins text-sm font-bold py-1 px-4 rounded-full uppercase tracking-wider">Most Popular</span>
+                    <h3 class="font-poppins font-bold text-2xl text-white pt-6">Professional Presence</h3>
+                    <p class="font-roboto mt-2 text-gray-300">Ideal for NGOs, SMEs, & hospitals.</p>
+                    <p class="font-poppins font-bold text-4xl text-white my-6">KSh 65,000</p>
+                    <ul class="space-y-4 text-gray-200 flex-grow">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>5-8 Pages</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Content Management System</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Professional Email Setup</li>
+                    </ul>
+                    <div class="mt-8">
+                        <button data-modal-target="professional-modal" class="modal-open-button block w-full text-center bg-[var(--kepas-green)] text-[var(--kepas-navy)] font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">View Plan Details</button>
+                    </div>
+                </div>
+
+                <!-- Pricing Card 3: Enterprise -->
+                <div class="bg-[var(--kepas-gray)] rounded-xl p-8 flex flex-col border-2 border-transparent reveal relative hover:border-[var(--kepas-green)]/50 transition-colors duration-300">
+                    <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Enterprise Solution</h3>
+                    <p class="font-roboto mt-2 text-slate-600">For government dept. & custom apps.</p>
+                    <p class="font-poppins font-bold text-4xl text-[var(--kepas-navy)] my-6">Custom</p>
+                    <ul class="space-y-4 text-slate-700 flex-grow">
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Advanced Functionality</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated Project Manager</li>
+                        <li class="flex items-center"><svg class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Ongoing Strategic Support</li>
+                    </ul>
+                    <div class="mt-8">
+                         <button data-modal-target="enterprise-modal" class="modal-open-button block w-full text-center bg-[var(--kepas-navy)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-dark-gray)] transition duration-300">View Plan Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- Starter Plan Modal -->
+    <div id="starter-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Starter Presence Plan Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+            <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: KSh 30,000 (One-time Fee)</strong></p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 1: Project Kick-off & Discovery</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Service Agreement & 50% Deposit Invoice.</li>
+                        <li>1-Hour Discovery Call to understand your goals.</li>
+                        <li>Collection of your logo and written content.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 2: Design & Development</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Domain Name Registration & Hosting Setup (1 Year Included).</li>
+                        <li>Design and build of your 3-page, mobile-friendly website.</li>
+                        <li>Integration of Google Maps and a clickable WhatsApp button.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 3: Review & Launch</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Private link for your review and one round of feedback.</li>
+                        <li>Final invoice for the remaining 50% balance.</li>
+                        <li>Official website launch upon final payment.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Optional: Peace of Mind Plan</h4>
+                    <p class="mt-1">KSh 2,500/month for security scans, weekly backups, software updates, and 30 mins of monthly support.</p>
+                </div>
+            </div>
+            <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Request This Plan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Plan Modal -->
+    <div id="professional-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Professional Presence Plan Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+             <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: KSh 65,000 (One-time Fee)</strong></p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 1: In-depth Discovery</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Service Agreement & 50% Deposit Invoice.</li>
+                        <li>1-2 Hour In-depth Discovery Call to map your 5-8 pages.</li>
+                        <li>Collection of your content, logo, and other brand assets.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 2: Design & Development</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Domain, Hosting & Professional Email Setup (up to 5 accounts).</li>
+                        <li>Design and build on WordPress (CMS) for easy self-management.</li>
+                        <li>Integration of advanced contact forms, SEO basics, and Google Analytics.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 3: Training, Review & Launch</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>1-Hour live training session for your staff on how to use the CMS.</li>
+                        <li>Private link for your review and one round of feedback.</li>
+                        <li>Final invoice for the remaining 50% balance.</li>
+                        <li>Official website launch upon final payment.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Optional: Growth Plan</h4>
+                    <p class="mt-1">KSh 8,000/month for all security services plus up to 2 hours of monthly content updates and support.</p>
+                </div>
+            </div>
+             <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Request This Plan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enterprise Plan Modal -->
+    <div id="enterprise-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Enterprise Solution Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+             <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: Custom Quote</strong></p>
+                <p>The Enterprise Solution is a bespoke service for organizations with unique and complex requirements. The process is consultative and tailored specifically to your project's needs.</p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Our Process Includes:</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>**Deep Consultation:** We begin with a series of meetings to fully understand your operational challenges and strategic objectives.</li>
+                        <li>**Custom Proposal:** We deliver a detailed proposal outlining a custom-built solution, project phases, specific milestones, and a comprehensive price quotation.</li>
+                        <li>**Dedicated Project Management:** You will be assigned a dedicated project manager as your single point of contact throughout the project lifecycle.</li>
+                        <li>**Bespoke Development:** We engineer your solution with a focus on advanced security, scalability, and specific functionalities like client portals, booking systems, or custom databases.</li>
+                        <li>**User Acceptance Testing & Training:** We conduct thorough testing with your team and provide comprehensive training to ensure a smooth adoption.</li>
+                        <li>**Ongoing Strategic Partnership:** We offer long-term support and strategic guidance to ensure your digital asset evolves with your organization.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Contact Us for a Quote</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openButtons = document.querySelectorAll('.modal-open-button');
+            
+            openButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    const modalOverlay = modal;
+                    const modalContent = modal.querySelector('.modal-content');
+
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    modalOverlay.classList.remove('pointer-events-none');
+                    modalOverlay.classList.remove('opacity-0');
+                    modalContent.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                });
+            });
+
+            const closeButtons = document.querySelectorAll('.modal-close-button');
+            const overlays = document.querySelectorAll('.modal-overlay');
+
+            function closeModal(modal) {
+                if (!modal) return;
+                const modalOverlay = modal;
+                const modalContent = modal.querySelector('.modal-content');
+
+                document.body.style.overflow = 'auto';
+                modalOverlay.classList.add('opacity-0');
+                modalContent.classList.add('opacity-0');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modalOverlay.classList.add('pointer-events-none');
+                }, 300);
+            }
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const modal = button.closest('.modal-overlay');
+                    // Check if it's the main CTA button inside the modal
+                    if (!e.currentTarget.hasAttribute('data-modal-target')) {
+                         closeModal(modal);
+                    }
+                });
+            });
+
+            overlays.forEach(overlay => {
+                overlay.addEventListener('click', (event) => {
+                    if (event.target === overlay) {
+                        closeModal(overlay);
+                    }
+                });
+            });
+
+            // Scroll reveal animation
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - KEPAS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --kepas-blue: #004AAD;
+            --kepas-navy: #002D5A;
+            --kepas-orange: #F26C21;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html">
+                    <img src="assets/kepas-logo.png" alt="KEPAS Logo" class="h-12">
+                </a>
+                <h1 class="text-3xl font-bold text-[var(--kepas-navy)]">What Our Clients Say</h1>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <div id="testimonials-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonials will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // The API endpoint for your testimonials in Strapi v3
+        // We add ?_sort=id:DESC to get the latest testimonials first
+        const apiUrl = 'http://localhost:1337/testimonials?_sort=id:DESC';
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const testimonialsContainer = document.getElementById('testimonials-container');
+                testimonialsContainer.innerHTML = ''; // Clear existing content
+
+                if (data && data.length > 0) {
+                    data.forEach(testimonial => {
+                        // Strapi v3 serves media URLs relative to the API root
+                        const imageUrl = testimonial.profile_image ? `http://localhost:1337${testimonial.profile_image.url}` : 'https://via.placeholder.com/150';
+
+                        const testimonialCard = `
+                            <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+                                <img src="${imageUrl}" alt="${testimonial.name}'s profile picture" class="w-24 h-24 rounded-full object-cover mb-4 border-4 border-[var(--kepas-blue)]">
+                                <p class="text-slate-600 italic flex-grow">\"${testimonial.quote}\"</p>
+                                <div class="mt-4">
+                                    <p class="font-bold text-lg text-[var(--kepas-navy)]">${testimonial.name}</p>
+                                    <p class="text-sm text-gray-500">${testimonial.company}</p>
+                                </div>
+                            </div>
+                        `;
+                        testimonialsContainer.innerHTML += testimonialCard;
+                    });
+                } else {
+                    testimonialsContainer.innerHTML = '<p class="text-center col-span-full">No testimonials found.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching testimonials:', error);
+                const testimonialsContainer = document.getElementById('testimonials-container');
+                testimonialsContainer.innerHTML = '<p class="text-center col-span-full">Could not load testimonials at this time.</p>';
+            });
+    });
+    </script>
+
+</body>
+</html>

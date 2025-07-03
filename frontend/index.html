@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEPAS – Digital Solutions for Kenya's Leading Organizations</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins and Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* Define brand colors as CSS custom properties for reliability */
+        :root {
+            --kepas-green: #10b981; /* Emerald 500 */
+            --kepas-green-hover: #059669; /* Emerald 600 */
+            --kepas-navy: #111827; /* Gray 900 */
+            --kepas-light-gray: #f9fafb; /* Gray 50 */
+            --kepas-light-text: #4b5563; /* Gray 600 */
+            --kepas-dark-text: #1f2937; /* Gray 800 */
+            --kepas-light-green: #d1fae5; /* Emerald 100 */
+        }
+
+        .hero-bg-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(17, 24, 39, 0.6), var(--kepas-navy));
+            z-index: 1;
+        }
+
+        .font-poppins {
+             font-family: 'Poppins', sans-serif;
+        }
+
+        /* Testimonial card transition */
+        .testimonial-card {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        @keyframes pulse-wave {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+          }
+          70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 20px rgba(22, 163, 74, 0);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+          }
+        }
+        .hero-button-animated {
+          animation: pulse-wave 2s infinite;
+          border-radius: 0.5rem; /* Matches rounded-lg */
+        }
+
+        .quote-clamp {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 5; /* Shows up to 5 lines of text */
+          line-clamp: 5;
+          overflow: hidden;
+        }
+
+        .animate-marquee {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Toast Notification Styles */
+        #toast-container {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            background-color: var(--kepas-green);
+            color: white;
+        }
+
+        .toast-error {
+            background-color: #ef4444; /* Red 500 */
+            color: white;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/style.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXX');
+    </script>
+</head>
+<body class="bg-white text-kepas-dark-text">
+    <div id="toast-container"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/90 backdrop-blur-lg shadow-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
+            <a href="#" class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">
+                <img src="assets/no-icon-no-slogan-kepas-logo.png" alt="KEPAS Logo" class="h-14 inline-block">
+            </a>
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#services" class="text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)] transition duration-300">Services</a>
+                <a href="#about" class="text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)] transition duration-300">Why Us</a>
+                <a href="#pricing" class="text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)] transition duration-300">Pricing</a>
+                <a href="#contact" class="bg-[var(--kepas-green)] text-white font-poppins font-bold py-2 px-5 rounded-lg hover:bg-[var(--kepas-green-hover)] transition duration-300 shadow-sm hover:shadow-md">
+                    Contact Us <i data-feather="mail" class="inline-block ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-[var(--kepas-navy)]">
+                <i data-feather="menu"></i>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white px-6 pt-2 pb-4 border-t border-gray-200">
+            <a href="#services" class="block py-2 text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)]">Services</a>
+            <a href="#about" class="block py-2 text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)]">Why Us</a>
+            <a href="#pricing" class="block py-2 text-[var(--kepas-dark-text)] hover:text-[var(--kepas-green)]">Pricing</a>
+            <a href="#contact" class="block mt-4 bg-[var(--kepas-green)] text-white font-poppins text-center font-bold py-2 px-4 rounded-lg hover:bg-[var(--kepas-green-hover)]">
+                Contact Us <i data-feather="mail" class="inline-block ml-2 w-4 h-4"></i>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative hero-bg-overlay bg-cover bg-center text-white flex flex-col justify-center" style="background-image: url('assets/black-office-workers.jpg'); background-color: var(--kepas-navy);">
+            <div class="container mx-auto px-6 text-center relative z-10 max-w-7xl flex-grow flex flex-col justify-center pt-32 pb-16 min-h-[85vh]">
+               <img src="assets/kepas-logo.png" alt="KEPAS Logo" class="hidden md:block h-40 mx-auto mb-8" style="border-radius: 14px; opacity: 0.8;">
+               <h1 class="font-poppins font-extrabold text-4xl sm:text-5xl md:text-6xl leading-tight max-w-4xl mx-auto">
+                   We Help You Show Up Online, Professionally and Powerfully
+               </h1>
+               <p class="font-poppins mt-8 text-xl sm:text-2xl md:text-3xl font-bold max-w-3xl mx-auto text-gradient-hero-sub">
+                   We understand! <br class="sm:hidden"> Let's talk about how we can help.
+               </p>
+               <div class="mt-10">
+                   <a href="#contact" class="hero-button-animated inline-flex items-center gap-3 bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-8 sm:py-4 sm:px-10 rounded-lg text-base sm:text-lg hover:bg-[var(--kepas-green-hover)] transition duration-300 transform hover:scale-105 shadow-lg shadow-[var(--kepas-green)]/30">
+                      <i data-feather="send" class="w-5 h-5"></i>
+                      Start Here
+                   </a>
+               </div>
+           </div>
+       </section>
+
+       <!-- "Trusted By" Section -->
+       <section class="py-12 bg-[var(--kepas-navy)]">
+           <div class="container mx-auto px-6 max-w-7xl">
+                <p class="text-center text-sm font-bold tracking-widest text-white/70 uppercase mb-8">Proudly Partnering With</p>
+                <div class="overflow-hidden whitespace-nowrap text-white">
+                    <div class="animate-marquee">
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">BLUEPRINT</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">ST-ANGELA</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">WABI</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">HUNTERS MANOR</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">PENETY RESORT</span>
+                        <!-- Duplicate for seamless scroll -->
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">BLUEPRINT</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">ST-ANGELA</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">WABI</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">HUNTERS MANOR</span>
+                        <span class="inline-block font-poppins text-lg sm:text-xl font-medium uppercase mx-8">PENETY RESORT</span>
+                    </div>
+                </div>
+           </div>
+       </section>
+
+        <!-- "What We Do" / Core Services Section -->
+        <section id="services" class="py-16 md:py-24 bg-[var(--kepas-light-gray)]">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-12 sm:mb-16 reveal">
+                    <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">What We Do</h2>
+                    <p class="text-lg max-w-3xl mx-auto mt-4 text-[var(--kepas-light-text)]">We provide end-to-end solutions to bring your digital vision to life.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 md:gap-10">
+                    <div class="bg-white p-8 rounded-xl card-hover border border-gray-200 reveal">
+                        <div class="flex items-center justify-center bg-[var(--kepas-light-green)] rounded-full w-16 h-16 mb-6">
+                            <i data-feather="smartphone" class="w-8 h-8 text-[var(--kepas-navy)]"></i>
+                        </div>
+                        <h3 class="text-2xl font-poppins font-bold mb-3 text-[var(--kepas-navy)]">App Development</h3>
+                        <p class="text-[var(--kepas-dark-text)] mb-4">From idea to launch, we create intuitive and high-performance mobile applications for iOS and Android that engage users and build your brand.</p>
+                        <ul class="space-y-2 text-[var(--kepas-light-text)]">
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>Native iOS & Android Apps</li>
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>Cross-Platform Solutions</li>
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>UI/UX Design & Prototyping</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl card-hover border border-gray-200 reveal delay-200">
+                         <div class="flex items-center justify-center bg-[var(--kepas-light-green)] rounded-full w-16 h-16 mb-6">
+                            <i data-feather="layout" class="w-8 h-8 text-[var(--kepas-navy)]"></i>
+                        </div>
+                        <h3 class="text-2xl font-poppins font-bold mb-3 text-[var(--kepas-navy)]">Website Development</h3>
+                        <p class="text-[var(--kepas-dark-text)] mb-4">We design and develop beautiful, fast, and secure websites that work flawlessly on any device, helping you attract customers and grow your business online.</p>
+                         <ul class="space-y-2 text-[var(--kepas-light-text)]">
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>Corporate & E-commerce Sites</li>
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>Content Management Systems (CMS)</li>
+                            <li class="flex items-center"><i data-feather="check-circle" class="w-5 h-5 text-[var(--kepas-green)] mr-2"></i>Web Application Development</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "Why KEPAS is the Right Choice" Section -->
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">Why KEPAS is the Right Choice for Your Organization</h2>
+                    <p class="mt-4 text-lg text-slate-600">Selecting a digital partner is an important step for your business. At KEPAS (Kenya Professionals In Application Solutions), we value the trust you place in us. We’re a fully compliant, legally registered company in Kenya under the Business Act (Cap 499, Section 14), with Business Number BN-KYCRJ5VG. Our commitment is to provide professional, dependable solutions to support your digital goals with confidence and clarity.</p>
+                </div>
+                <div class="mt-12 sm:mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left max-w-6xl mx-auto">
+                    <!-- Feature Card 1 -->
+                    <div class="group reveal bg-white p-8 rounded-xl border border-gray-200 card-hover">
+                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--kepas-light-green)] mb-6">
+                             <i data-feather="users" class="h-8 w-8 text-[var(--kepas-green)]"></i>
+                        </div>
+                        <h3 class="font-poppins font-bold text-xl text-[var(--kepas-navy)]">We Understand Your World</h3>
+                        <p class="mt-2 text-slate-600">As a Kenyan company, we possess an innate understanding of the local market. We blend this insight with international best practices to deliver solutions that are both relevant and cutting-edge.</p>
+                    </div>
+                     <!-- Feature Card 2 -->
+                    <div class="group reveal delay-200 bg-white p-8 rounded-xl border border-gray-200 card-hover">
+                       <div class="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--kepas-light-green)] mb-6">
+                          <i data-feather="check-circle" class="h-8 w-8 text-[var(--kepas-green)]"></i>
+                       </div>
+                        <h3 class="font-poppins font-bold text-xl text-[var(--kepas-navy)]">Your Mission is Our Priority</h3>
+                        <p class="mt-2 text-slate-600">We see ourselves as an extension of your team. Our process is built on collaboration and clear communication. We succeed only when your digital presence powerfully reflects your organization's values.</p>
+                    </div>
+                     <!-- Feature Card 3 -->
+                    <div class="group reveal delay-400 bg-white p-8 rounded-xl border border-gray-200 card-hover">
+                         <div class="flex items-center justify-center h-16 w-16 rounded-full bg-[var(--kepas-light-green)] mb-6">
+                             <i data-feather="trending-up" class="h-8 w-8 text-[var(--kepas-green)]"></i>
+                        </div>
+                        <h3 class="font-poppins font-bold text-xl text-[var(--kepas-navy)]">Engineered for the Future</h3>
+                        <p class="mt-2 text-slate-600">We build with tomorrow in mind. Our solutions are scalable, secure, and robust, ensuring your investment provides lasting value and can adapt as technology evolves.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "Our Path to Success" / Process Section -->
+        <section id="process" class="py-16 md:py-24 bg-[var(--kepas-light-gray)]">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-12 sm:mb-16 reveal">
+                    <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">Our Path to Success</h2>
+                    <p class="text-lg max-w-3xl mx-auto mt-4 text-[var(--kepas-light-text)]">A transparent and collaborative process designed for efficiency and exceptional results.</p>
+                </div>
+                <!-- Desktop Process -->
+                <div class="relative hidden md:block">
+                    <div class="absolute top-12 left-0 w-full h-0.5" style="background-image: linear-gradient(to right, var(--brand-subtle-gray) 50%, transparent 50%); background-size: 16px 1px;"></div>
+                    <div class="grid grid-cols-4 gap-12 text-center">
+                        <div class="flex flex-col items-center z-10 reveal">
+                            <div class="flex items-center justify-center border-4 rounded-full w-24 h-24 mb-4 bg-[var(--kepas-light-gray)]" style="border-color: var(--kepas-navy);">
+                                <span class="text-3xl font-bold text-[var(--kepas-navy)]">1</span>
+                            </div>
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Discovery</h3>
+                            <p class="text-slate-600">We start by understanding your vision, goals, and target audience.</p>
+                        </div>
+                        <div class="flex flex-col items-center z-10 reveal delay-200">
+                             <div class="flex items-center justify-center border-4 rounded-full w-24 h-24 mb-4 bg-[var(--kepas-light-gray)]" style="border-color: #4c6f9c;">
+                                <span class="text-3xl font-bold" style="color: #4c6f9c;">2</span>
+                            </div>
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Design</h3>
+                            <p class="text-slate-600">We create intuitive and beautiful UI/UX designs and prototypes.</p>
+                        </div>
+                        <div class="flex flex-col items-center z-10 reveal delay-400">
+                             <div class="flex items-center justify-center border-4 rounded-full w-24 h-24 mb-4 bg-[var(--kepas-light-gray)]" style="border-color: #7d96b8;">
+                                <span class="text-3xl font-bold" style="color: #7d96b8;">3</span>
+                            </div>
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Develop</h3>
+                            <p class="text-slate-600">Our expert developers bring the designs to life with clean, efficient code.</p>
+                        </div>
+                        <div class="flex flex-col items-center z-10 reveal delay-600">
+                             <div class="flex items-center justify-center border-4 rounded-full w-24 h-24 mb-4 bg-[var(--kepas-light-gray)]" style="border-color: var(--brand-subtle-gray);">
+                                 <i data-feather="check" class="h-10 w-10 text-[var(--kepas-navy)]"></i>
+                            </div>
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Launch</h3>
+                            <p class="text-slate-600">We deploy your project and provide strategic ongoing support for success.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile Process -->
+                <div class="relative md:hidden space-y-12 mt-8">
+                    <div class="flex items-start gap-6 reveal">
+                        <div class="flex flex-col items-center">
+                            <div class="flex-shrink-0 flex items-center justify-center border-4 rounded-full w-16 h-16 bg-[var(--kepas-light-gray)]" style="border-color: var(--kepas-navy);">
+                                <span class="text-2xl font-bold text-[var(--kepas-navy)]">1</span>
+                            </div>
+                            <div class="w-0.5 h-full bg-gray-300 mt-2"></div>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Discovery</h3>
+                            <p class="text-slate-600">We start by understanding your vision, goals, and target audience.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-6 reveal">
+                        <div class="flex flex-col items-center">
+                            <div class="flex-shrink-0 flex items-center justify-center border-4 rounded-full w-16 h-16 bg-[var(--kepas-light-gray)]" style="border-color: var(--kepas-navy);">
+                                <span class="text-2xl font-bold text-[var(--kepas-navy)]">2</span>
+                            </div>
+                            <div class="w-0.5 h-full bg-gray-300 mt-2"></div>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Design</h3>
+                            <p class="text-slate-600">We create impactful and beautiful UI/UX designs with figma prototypes for approval.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6 reveal">
+                        <div class="flex flex-col items-center">
+                            <div class="flex-shrink-0 flex items-center justify-center border-4 rounded-full w-16 h-16 bg-[var(--kepas-light-gray)]" style="border-color: var(--kepas-navy);">
+                                <span class="text-2xl font-bold text-[var(--kepas-navy)]">3</span>
+                            </div>
+                             <div class="w-0.5 h-full bg-gray-300 mt-2"></div>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Develop</h3>
+                            <p class="text-slate-600">Our expert developers bring the designs to life with clean, efficient code.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6 reveal">
+                        <div class="flex flex-col items-center">
+                            <div class="flex-shrink-0 flex items-center justify-center border-4 rounded-full w-16 h-16 bg-[var(--kepas-light-gray)]" style="border-color: var(--kepas-navy);">
+                                 <i data-feather="check" class="h-8 w-8 text-[var(--kepas-navy)]"></i>
+                            </div>
+                        </div>
+                        <div class="text-left">
+                           <h3 class="text-xl font-poppins font-bold mb-2 text-[var(--kepas-navy)]">Launch</h3>
+                            <p class="text-slate-600">We deploy your project and provide strategic ongoing support for success.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "See Our Impact in Action" Section -->
+        <section id="video-impact" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="reveal">
+                        <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">See Our Impact in Action</h2>
+                        <p class="mt-4 text-lg text-[var(--kepas-light-text)]">A strong digital presence is no longer optional. Go beyond the surface with deep dives into our projects, client success stories, and valuable insights into the digital landscape.</p>
+                        <p class="mt-4 text-lg text-[var(--kepas-light-text)]">See firsthand how we transform challenges into growth opportunities on our YouTube channel.</p>
+                        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-8 bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-[var(--kepas-green-hover)] transition duration-300 transform hover:scale-105 shadow-lg">
+                           <i data-feather="youtube" class="w-5 h-5"></i>
+                           Visit Our Channel
+                        </a>
+                    </div>
+                    <div class="reveal delay-200">
+                        <div class="w-full aspect-video shadow-2xl rounded-xl overflow-hidden bg-black">
+                            <iframe src="https://www.youtube.com/embed/2J4kn49yRFc?si=5_J-9cuTv84riiD4&rel=0&showinfo=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="w-full h-full"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING Section -->
+        <section id="pricing" class="py-16 md:py-24 bg-[var(--kepas-light-gray)]">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)]">Find the Perfect Plan for Your Organization</h2>
+                    <p class="mt-4 text-lg text-[var(--kepas-light-text)]">Transparent pricing designed for value and impact. No hidden fees.</p>
+                </div>
+                <div class="mt-12 grid lg:grid-cols-3 gap-8 items-stretch">
+                    <!-- Pricing Card 1: Starter -->
+                    <div class="bg-white rounded-xl p-8 pt-12 flex flex-col border-2 border-transparent reveal relative hover:border-[var(--kepas-green)]/50 transition-colors duration-300">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gray-200 text-[var(--kepas-dark-text)] font-poppins text-sm font-bold py-1 px-4 rounded-full uppercase tracking-wider">Best Value</span>
+                        <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Starter Presence</h3>
+                        <p class="font-roboto mt-2 text-slate-600">Ideal for small clinics & private schools.</p>
+                        <p class="font-poppins font-bold text-4xl text-[var(--kepas-navy)] my-6">KSh 45,000+</p>
+                        <ul class="space-y-4 text-slate-700 flex-grow">
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>1-3 Pages</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Mobile-Friendly Design</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>1 Year Hosting & Domain</li>
+                        </ul>
+                        <a href="#contact" class="mt-8 block w-full text-center bg-[var(--kepas-navy)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-dark-text)] transition duration-300">
+                            Get Started <i data-feather="arrow-right" class="inline-block ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Pricing Card 2: Professional (Highlighted) -->
+                    <div class="bg-[var(--kepas-navy)] text-white rounded-xl shadow-2xl p-8 pt-12 flex flex-col ring-4 ring-[var(--kepas-green)] relative reveal delay-200">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[var(--kepas-green)] text-[var(--kepas-navy)] font-poppins text-sm font-bold py-1 px-4 rounded-full uppercase tracking-wider">Most Popular</span>
+                        <h3 class="font-poppins font-bold text-2xl text-white">Professional Presence</h3>
+                        <p class="font-roboto mt-2 text-gray-300">Ideal for NGOs, SMEs, & hospitals.</p>
+                        <p class="font-poppins font-bold text-4xl text-white my-6">KSh 85,000+</p>
+                        <ul class="space-y-4 text-gray-200 flex-grow">
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>5-10 Pages</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Content Management System (CMS)</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Basic SEO & Analytics</li>
+                        </ul>
+                        <a href="#contact" class="mt-8 block w-full text-center bg-[var(--kepas-green)] text-[var(--kepas-navy)] font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">
+                            Request This Plan <i data-feather="arrow-right" class="inline-block ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Pricing Card 3: Enterprise -->
+                    <div class="bg-white rounded-xl p-8 pt-12 flex flex-col border-2 border-transparent reveal delay-400 relative hover:border-[var(--kepas-green)]/50 transition-colors duration-300">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gray-200 text-[var(--kepas-dark-text)] font-poppins text-sm font-bold py-1 px-4 rounded-full uppercase tracking-wider">Full Service</span>
+                        <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Enterprise Solution</h3>
+                        <p class="font-roboto mt-2 text-slate-600">For government dept. & custom apps.</p>
+                        <p class="font-poppins font-bold text-4xl text-[var(--kepas-navy)] my-6">Custom</p>
+                        <ul class="space-y-4 text-slate-700 flex-grow">
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Advanced Functionality</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Dedicated Project Manager</li>
+                            <li class="flex items-center"><i data-feather="check" class="h-5 w-5 text-[var(--kepas-green)] mr-3 flex-shrink-0"></i>Ongoing Strategic Support</li>
+                        </ul>
+                        <a href="#contact" class="mt-8 block w-full text-center bg-[var(--kepas-navy)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-dark-text)] transition duration-300">
+                            Contact for Quote <i data-feather="arrow-right" class="inline-block ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Testimonial Section -->
+        <section id="testimonials" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <img src="assets/testimonial-cover.png" alt="A professional team collaborating in a modern Kenyan office" class="rounded-lg shadow-xl">
+                    </div>
+                    <div class="reveal delay-200">
+                        <p class="font-poppins font-semibold text-[var(--kepas-green)]">Testimonials</p>
+                        <p class="mt-4 text-lg text-slate-600">We believe in building relationships, not just websites. Our process is transparent, collaborative, and focused on delivering results that matter to your organization.</p>
+                        <h2 class="font-poppins font-bold text-3xl md:text-4xl text-[var(--kepas-navy)] mt-6">Don’t Believe Us, Check What Our Clients Say</h2>
+                        
+                        <div id="testimonial-container" class="relative mt-6 h-48">
+                            <!-- Testimonials will be loaded here -->
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="mt-8 flex space-x-4">
+                            <button id="prev-testimonial" class="bg-white text-[var(--kepas-green)] p-3 rounded-full border-2 border-[var(--kepas-light-green)] hover:bg-[var(--kepas-light-green)] transition-colors duration-300 shadow-md">
+                                <i data-feather="arrow-left" class="w-6 h-6"></i>
+                            </button>
+                            <button id="next-testimonial" class="bg-white text-[var(--kepas-green)] p-3 rounded-full border-2 border-[var(--kepas-light-green)] hover:bg-[var(--kepas-light-green)] transition-colors duration-300 shadow-md">
+                                <i data-feather="arrow-right" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "Have a Project in Mind?" / Contact Section -->
+        <section id="contact" class="py-20 bg-[var(--kepas-navy)]">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-4xl font-poppins font-extrabold text-white">Have a Project in Mind?</h2>
+                    <p class="text-lg text-gray-300 mt-2">Let's talk about how we can help you achieve your goals.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white text-gray-800 rounded-lg shadow-2xl p-8 md:p-12 reveal delay-200">
+                    <form hx-post="/api/messages" hx-trigger="submit" hx-target="#toast-container" hx-swap="beforeend">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block mb-2 font-medium font-poppins">Your Name</label>
+                                <input type="text" id="name" name="name" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 font-medium font-poppins">Your Email</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. you@example.com" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block mb-2 font-medium font-poppins">Your Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. +254712345678" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                             <label for="message" class="block mb-2 font-medium font-poppins">Tell us about your project</label>
+                             <textarea id="message" name="message" rows="5" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="I'd like to build an app for..." required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-12 rounded-lg hover:bg-[var(--kepas-green-hover)] transition duration-300 shadow-lg">
+                                Send Message <i data-feather="send" class="inline-block ml-2 w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-12 text-center">
+                        <p class="font-poppins text-lg text-gray-700 mb-6">Prefer a different way to connect?</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 439.6c-33.8 0-66.3-9.1-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                               WhatsApp
+                            </a>
+                            <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#0088cc] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg>
+                               Telegram
+                            </a>
+                            <a href="sms:+254700000000" class="inline-flex items-center justify-center gap-3 bg-gray-600 text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+                               <i data-feather="message-square" class="w-6 h-6"></i>
+                               SMS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--kepas-dark-text)] text-white">
+        <div class="container mx-auto px-6 py-12 max-w-7xl">
+             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-1">
+                    <a href="#" class="block">
+                        <img src="assets/no-icon-no-slogan-kepas-logo.png" alt="KEPAS Logo" class="h-12" style="border-radius: 12px;">
+                    </a>
+                    <p class="mt-2 text-gray-400 text-sm">Crafting digital identities for Kenya's most impactful organizations.</p>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold uppercase tracking-wider text-sm text-white">Navigate</h4>
+                    <ul class="mt-4 space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-[var(--kepas-green)]">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-[var(--kepas-green)]">Why Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-[var(--kepas-green)]">Services</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-[var(--kepas-green)]">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                     <h4 class="font-poppins font-bold uppercase tracking-wider text-sm text-white">Legal</h4>
+                    <ul class="mt-4 space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-[var(--kepas-green)]">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-[var(--kepas-green)]">Terms of Service</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-poppins font-bold uppercase tracking-wider text-sm text-white">Contact</h4>
+                    <ul class="mt-4 space-y-2 text-sm">
+                        <li class="text-gray-400">123 Biashara St, Nairobi</li>
+                        <li class="text-gray-400 hover:text-[var(--kepas-green)]"><a href="mailto:hello@kepas.co.ke">hello@kepas.co.ke</a></li>
+                        <li class="text-gray-400">+254 7XX XXX XXX</li>
+                    </ul>
+                 </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-600 flex flex-col sm:flex-row justify-center items-center gap-6 text-center sm:text-left text-sm text-gray-500">
+                <div class="max-w-3xl">
+                    <p>&copy; <span id="year"></span> KEPAS – Kenya Professionals in Application Solutions. All Rights Reserved.</p>
+                    <p class="mt-2">KEPAS (Kenya Professionals In Application Solutions) is a legally recognized business in Kenya, registered under Business Number BN-KYCRJ5VG, in accordance with the Registration of Business Act (Cap 499, Section 14).</p>
+                </div>
+                <img src="assets/kenya-flag.png" alt="Kenyan Flag" class="w-[75px] h-auto mt-4 sm:mt-0 flex-shrink-0">
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="js/main.min.js"></script>
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-8 right-8 z-50 flex flex-col items-center space-y-4">
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 439.6c-33.8 0-66.3-9.1-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+        </a>
+        <!-- Telegram Floating Button -->
+        <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer" class="bg-[#0088cc] text-white p-3 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 496 512">
+                <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/>
+            </svg>
+        </a>
+        <!-- SMS Floating Button -->
+        <a href="sms:+254700000000" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="bg-gray-500 hover:bg-gray-600 text-white p-3 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- Speech bubble -->
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/>
+            <!-- Three dots inside -->
+            <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+    </a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const testimonialContainer = document.getElementById('testimonial-container');
+            const prevButton = document.getElementById('prev-testimonial');
+            const nextButton = document.getElementById('next-testimonial');
+            const apiUrl = 'http://localhost:1337/testimonials?_sort=id:DESC';
+
+            if (!testimonialContainer || !prevButton || !nextButton) {
+                console.error('Testimonial carousel elements not found.');
+                return;
+            }
+
+            let testimonials = [];
+            let currentIndex = 0;
+            let autoPlayInterval;
+
+            function showTestimonial(index) {
+                if (testimonials.length === 0) return;
+
+                // Hide all testimonials
+                testimonials.forEach((testimonial) => {
+                    testimonial.style.opacity = '0';
+                    testimonial.style.transform = 'scale(0.95)';
+                    testimonial.style.zIndex = '1';
+                });
+
+                // Show the current one
+                const currentCard = testimonials[index];
+                currentCard.style.opacity = '1';
+                currentCard.style.transform = 'scale(1)';
+                currentCard.style.zIndex = '10';
+                currentCard.style.left = '0';
+
+                // Update button states
+                prevButton.disabled = index === 0;
+                nextButton.disabled = index >= testimonials.length - 1;
+            }
+
+            function next() {
+                if (currentIndex < testimonials.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Loop back to the start
+                }
+                showTestimonial(currentIndex);
+            }
+
+            function prev() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showTestimonial(currentIndex);
+                }
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay(); // Ensure no multiple intervals are running
+                autoPlayInterval = setInterval(next, 7000); // Change every 7 seconds
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            function initializeCarousel() {
+                testimonials = Array.from(testimonialContainer.querySelectorAll('.testimonial-card'));
+                
+                if (testimonials.length === 0) {
+                    testimonialContainer.innerHTML = '<p class="text-center text-slate-600 lg:col-span-2">No testimonials available at the moment.</p>';
+                    prevButton.style.display = 'none';
+                    nextButton.style.display = 'none';
+                    return;
+                }
+
+                prevButton.addEventListener('click', () => {
+                    prev();
+                    stopAutoPlay();
+                });
+
+                nextButton.addEventListener('click', () => {
+                    next();
+                    stopAutoPlay();
+                });
+                
+                testimonialContainer.addEventListener('mouseenter', stopAutoPlay);
+                testimonialContainer.addEventListener('mouseleave', startAutoPlay);
+                
+                showTestimonial(currentIndex); // Initial call
+                startAutoPlay(); // Start the slideshow
+            }
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    testimonialContainer.innerHTML = ''; // Clear loading state
+
+                    if (data && data.length > 0) {
+                        data.forEach((testimonial, index) => {
+                            const imageUrl = (testimonial.profile_image && testimonial.profile_image.url)
+                                ? `http://localhost:1337${testimonial.profile_image.url}`
+                                : 'https://via.placeholder.com/150';
+
+                            const cardHTML = `
+                                <div id="testimonial-${index + 1}" class="testimonial-card absolute top-0 left-0 w-full h-full">
+                                    <blockquote class="h-full flex flex-col justify-center border-l-4 border-[var(--kepas-green)] p-6 bg-[var(--kepas-light-green)] rounded-r-lg">
+                                        <div class="flex items-center">
+                                            <img src="${imageUrl}" alt="${testimonial.name}" class="w-12 h-12 rounded-full mr-4 object-cover">
+                                            <div>
+                                                <p class="font-poppins font-bold not-italic text-[var(--kepas-navy)]">${testimonial.name}</p>
+                                                <p class="text-sm text-slate-500">${testimonial.company}</p>
+                                            </div>
+                                        </div>
+                                        <p class="italic text-slate-800 text-lg mt-6">\"${testimonial.quote}\"</p>
+                                    </blockquote>
+                                </div>`;
+                            testimonialContainer.innerHTML += cardHTML;
+                        });
+                    }
+                    
+                    initializeCarousel(); // Initialize after content is loaded
+                })
+                .catch(error => {
+                    console.error('Error fetching testimonials:', error);
+                    testimonialContainer.innerHTML = '<p class="text-center text-slate-600 lg:col-span-2">Could not load testimonials.</p>';
+                    prevButton.style.display = 'none';
+                    nextButton.style.display = 'none';
+                });
+        });
+    </script>
+    <script>
+        // Set current year in footer
+        const yearSpan = document.getElementById('year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // Initialize Feather Icons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+
+        // Auto-dismiss toast notifications
+        document.body.addEventListener('htmx:afterSwap', function(evt) {
+            // htmx swaps the new content into the target, and the last child will be the new toast
+            const toast = evt.detail.target.lastElementChild;
+            if (toast && toast.classList.contains('toast')) {
+                // Add 'show' class to trigger animation
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 100); // Small delay to ensure transition works
+
+                // Set timeout to remove the toast
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    // Remove element from DOM after transition ends
+                    toast.addEventListener('transitionend', () => toast.remove());
+                }, 5000); // 5 seconds
+            }
+        });
+    </script>
+</body>
+</html>
