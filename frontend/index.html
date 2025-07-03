@@ -121,6 +121,25 @@
             background-color: #ef4444; /* Red 500 */
             color: white;
         }
+
+         /* Modal Styles */
+         .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Animation classes for scroll effects */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.6, 0.2, 0.4, 1), transform 0.8s cubic-bezier(0.6, 0.2, 0.4, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 
     <link rel="stylesheet" href="css/style.min.css">
@@ -454,6 +473,124 @@
         </div>
     </section>
 
+    <!-- Modals -->
+    <!-- Starter Plan Modal -->
+    <div id="starter-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Starter Presence Plan Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+            <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: KSh 30,000 (One-time Fee)</strong></p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 1: Project Kick-off & Discovery</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Service Agreement & 50% Deposit Invoice.</li>
+                        <li>1-Hour Discovery Call to understand your goals.</li>
+                        <li>Collection of your logo and written content.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 2: Design & Development</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Domain Name Registration & Hosting Setup (1 Year Included).</li>
+                        <li>Design and build of your 3-page, mobile-friendly website.</li>
+                        <li>Integration of Google Maps and a clickable WhatsApp button.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 3: Review & Launch</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Private link for your review and one round of feedback.</li>
+                        <li>Final invoice for the remaining 50% balance.</li>
+                        <li>Official website launch upon final payment.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Optional: Peace of Mind Plan</h4>
+                    <p class="mt-1">KSh 2,500/month for security scans, weekly backups, software updates, and 30 mins of monthly support.</p>
+                </div>
+            </div>
+            <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Request This Plan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Plan Modal -->
+    <div id="professional-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Professional Presence Plan Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+             <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: KSh 65,000 (One-time Fee)</strong></p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 1: In-depth Discovery</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Service Agreement & 50% Deposit Invoice.</li>
+                        <li>1-2 Hour In-depth Discovery Call to map your 5-8 pages.</li>
+                        <li>Collection of your content, logo, and other brand assets.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 2: Design & Development</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Domain, Hosting & Professional Email Setup.</li>
+                        <li>Design and build on (CMS) for easy self-management.</li>
+                        <li>Integration of advanced contact forms, SEO basics, and Analytics.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Phase 3: Training, Review & Launch</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>1-Hour video training session for your staff on how to use the CMS.</li>
+                        <li>Private link for your review and one round of feedback.</li>
+                        <li>Final invoice for the remaining 50% balance.</li>
+                        <li>Official website launch upon final payment.</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Optional: Growth Plan</h4>
+                    <p class="mt-1">KSh 6,000/month for all security services plus up to 2 hours of monthly content updates and support.</p>
+                </div>
+            </div>
+             <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Request This Plan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enterprise Plan Modal -->
+    <div id="enterprise-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-2xl rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto transform scale-95 opacity-0">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 class="font-poppins font-bold text-2xl text-[var(--kepas-navy)]">Enterprise Solution Details</h3>
+                <button class="modal-close-button text-gray-500 hover:text-black text-3xl">&times;</button>
+            </div>
+             <div class="mt-6 text-slate-700 space-y-6">
+                <p><strong>Investment: Custom Quote</strong></p>
+                <p>The Enterprise Solution is a bespoke service for organizations with unique and complex requirements. The process is consultative and tailored specifically to your project's needs.</p>
+                <div>
+                    <h4 class="font-poppins font-bold text-lg text-[var(--kepas-navy)]">Our Process Includes:</h4>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>**Deep Consultation:** We begin with a series of meetings to fully understand your operational challenges and strategic objectives.</li>
+                        <li>**Custom Proposal:** We deliver a detailed proposal outlining a custom-built solution, project phases, specific milestones, and a comprehensive price quotation.</li>
+                        <li>**Dedicated Project Management:** You will be assigned a dedicated project manager as your single point of contact throughout the project lifecycle.</li>
+                        <li>**Bespoke Development:** We engineer your solution with a focus on advanced security, scalability, and specific functionalities like client portals, booking systems, or custom databases.</li>
+                        <li>**User Acceptance Testing & Training:** We conduct thorough testing with your team and provide comprehensive training to ensure a smooth adoption.</li>
+                        <li>**Ongoing Strategic Partnership:** We offer long-term support and strategic guidance to ensure your digital asset evolves with your organization.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="mt-8 border-t pt-6">
+                <a href="#contact" class="modal-close-button block w-full text-center bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-[var(--kepas-green-hover)] transition duration-300">Contact Us for a Quote</a>
+            </div>
+        </div>
+    </div>
+
 
 
         <!-- Testimonial Section -->
@@ -763,22 +900,97 @@
             feather.replace();
         }
 
-        // Auto-dismiss toast notifications
+        // Function to set up modal event listeners
+        function setupModals() {
+            const openButtons = document.querySelectorAll('.modal-open-button');
+            openButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    if (!modal) return;
+                    const modalOverlay = modal;
+                    const modalContent = modal.querySelector('.modal-content');
+
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    modalOverlay.classList.remove('pointer-events-none', 'opacity-0');
+                    modalContent.classList.remove('opacity-0', 'scale-95');
+                });
+            });
+
+            const closeButtons = document.querySelectorAll('.modal-close-button');
+            const overlays = document.querySelectorAll('.modal-overlay');
+
+            function closeModal(modal) {
+                if (!modal) return;
+                const modalOverlay = modal;
+                const modalContent = modal.querySelector('.modal-content');
+
+                document.body.style.overflow = 'auto';
+                modalOverlay.classList.add('opacity-0');
+                modalContent.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    modalOverlay.classList.add('pointer-events-none');
+                }, 300);
+            }
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const modal = button.closest('.modal-overlay');
+                    // Check if it's the main CTA button inside the modal, which might also open another modal
+                    if (!e.currentTarget.hasAttribute('data-modal-target')) {
+                         closeModal(modal);
+                    }
+                });
+            });
+
+            overlays.forEach(overlay => {
+                overlay.addEventListener('click', (event) => {
+                    if (event.target === overlay) {
+                        closeModal(overlay);
+                    }
+                });
+            });
+        }
+
+        // Function to set up scroll reveal animations
+        function setupScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setupModals();
+            setupScrollReveal();
+        });
+
+        // Auto-dismiss toast notifications and re-run setups for HTMX-loaded content
         document.body.addEventListener('htmx:afterSwap', function(evt) {
-            // htmx swaps the new content into the target, and the last child will be the new toast
+            // Handle toast notifications
             const toast = evt.detail.target.lastElementChild;
             if (toast && toast.classList.contains('toast')) {
-                // Add 'show' class to trigger animation
-                setTimeout(() => {
-                    toast.classList.add('show');
-                }, 100); // Small delay to ensure transition works
-
-                // Set timeout to remove the toast
+                setTimeout(() => toast.classList.add('show'), 100);
                 setTimeout(() => {
                     toast.classList.remove('show');
-                    // Remove element from DOM after transition ends
                     toast.addEventListener('transitionend', () => toast.remove());
-                }, 5000); // 5 seconds
+                }, 5000);
+            }
+
+            // Re-initialize features for new content
+            setupModals();
+            setupScrollReveal();
+            if (typeof feather !== 'undefined') {
+                feather.replace();
             }
         });
     </script>
