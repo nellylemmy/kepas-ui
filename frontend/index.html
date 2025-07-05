@@ -15,6 +15,10 @@
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Toastify CSS and JS links -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <style>
         /* Define brand colors as CSS custom properties for reliability */
@@ -139,6 +143,155 @@
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* RedNote Styles */
+        .rednote-bg {
+            background-color: #181f2a; /* Darker navy */
+        }
+        .rednote-card {
+            background-color: #252e3e; /* Slightly lighter than bg */
+            border: 1px solid #3c465d;
+            border-radius: 1rem;
+            color: #e2e8f0;
+        }
+        .rednote-textarea {
+            background-color: #252e3e;
+            border: 1px solid #3c465d;
+            color: #e2e8f0;
+            border-radius: 0.75rem;
+            resize: none;
+        }
+        .rednote-textarea::placeholder {
+            color: #909ab0;
+        }
+        .rednote-button {
+            background-color: #3c465d;
+            color: #e2e8f0;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .rednote-button:hover {
+            background-color: #4a5568;
+        }
+        .status-tracker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-start;
+            border-top: 1px solid #3c465d;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        .status-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background-color: #2d3748;
+            color: #909ab0;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .status-step.active {
+            color: white;
+            background-color: #3b82f6;
+        }
+        .status-step.completed {
+            color: white;
+            background-color: #22c55e;
+        }
+        .status-step.rejected {
+            color: white;
+            background-color: #ef4444;
+        }
+        .status-step.reviewing {
+            position: relative;
+            overflow: hidden;
+        }
+        .status-step.reviewing::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            animation: glassy-sheen 2s infinite linear;
+        }
+        @keyframes glassy-sheen {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        .border-accepted {
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.25);
+        }
+        .border-rejected {
+            border-color: rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+        }
+
+        .rednote-tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid #3c465d;
+            margin-bottom: 1.5rem;
+        }
+        .rednote-tab {
+            padding: 0.5rem 1rem;
+            color: #909ab0;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .rednote-tab:hover {
+            color: white;
+        }
+        .rednote-tab.active {
+            color: white;
+            border-bottom-color: #3b82f6;
+        }
+
+        .composer-textarea {
+            background: transparent !important;
+            color: #e2e8f0 !important;
+            font-size: 1.125rem !important;
+            resize: none;
+            border: none !important;
+            width: 100%;
+            padding: 0.5rem 0 !important;
+        }
+        .composer-textarea:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .composer-textarea::placeholder {
+            color: #909ab0;
+        }
+
+        .rednote-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
         }
     </style>
 
@@ -624,57 +777,281 @@
         </section>
 
         <!-- "Have a Project in Mind?" / Contact Section -->
-        <section id="contact" class="py-20 bg-[var(--kepas-navy)]">
+        <section id="contact" class="py-20 rednote-bg">
             <div class="container mx-auto px-6 max-w-7xl">
-                <div class="text-center mb-12 reveal">
-                    <h2 class="text-4xl font-poppins font-extrabold text-white">Have a Project in Mind?</h2>
-                    <p class="text-lg text-gray-300 mt-2">Let's talk about how we can help you achieve your goals.</p>
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold font-poppins text-white">Get in Touch</h2>
+                    <p class="text-lg text-gray-300 mt-2">Have a project or a question? We'd love to hear from you.</p>
                 </div>
-                <div class="max-w-4xl mx-auto bg-white text-gray-800 rounded-lg shadow-2xl p-8 md:p-12 reveal delay-200">
-                    <form id="contact-form">
-                        <input type="hidden" id="user-identifier" name="identifier">
-                        <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label for="name" class="block mb-2 font-medium font-poppins">Your Name</label>
-                                <input type="text" id="name" name="name" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. John Doe">
+                <div id="contact-container" class="max-w-4xl mx-auto reveal delay-200">
+                    <!-- Layout for New Users (will be styled but shown within the new container) -->
+                    <div id="new-user-view" class="bg-white text-gray-800 rounded-lg shadow-2xl p-8 md:p-12">
+                        <form id="contact-form">
+                            <input type="hidden" id="user-identifier" name="identifier">
+                            <div id="name-email-container" class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block mb-2 font-medium font-poppins">Your Name</label>
+                                    <input type="text" id="name" name="name" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)] transition" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block mb-2 font-medium font-poppins">Your Email</label>
+                                    <input type="email" id="email" name="email" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)] transition" required>
+                                </div>
                             </div>
-                            <div>
-                                <label for="email" class="block mb-2 font-medium font-poppins">Your Email</label>
-                                <input type="email" id="email" name="email" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. you@example.com">
+                            <div id="phone-container" class="mb-6">
+                                <label for="phone" class="block mb-2 font-medium font-poppins">Your Phone</label>
+                                <input type="tel" id="phone" name="phone" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)] transition" required>
                             </div>
-                            <div>
-                                <label for="phone" class="block mb-2 font-medium font-poppins">Your Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="e.g. +254712345678">
+                            <div class="mb-6">
+                                <label for="message" class="block mb-2 font-medium font-poppins">Tell us about your project</label>
+                                <textarea id="message" name="message" rows="4" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)] transition" placeholder="What's on your mind today?" required></textarea>
                             </div>
-                        </div>
-                        <div class="mb-6">
-                             <label for="message" class="block mb-2 font-medium font-poppins">Tell us about your project</label>
-                             <textarea id="message" name="message" rows="5" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--kepas-green)]" placeholder="I'd like to build an app for..."></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-12 rounded-lg hover:bg-[var(--kepas-green-hover)] transition duration-300 shadow-lg">
-                                Send Message <i data-feather="send" class="inline-block ml-2 w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </form>
-                    <div id="previous-submissions" class="mt-8"></div>
-                    <div class="mt-12 text-center">
-                        <p class="font-poppins text-lg text-gray-700 mb-6">Prefer a different way to connect?</p>
-                        <div class="flex flex-col sm:flex-row justify-center gap-4">
-                            <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 439.6c-33.8 0-66.3-9.1-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                               WhatsApp
-                            </a>
-                            <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#0088cc] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
-                               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg>
-                               Telegram
-                            </a>
-                            <a href="sms:+254700000000" class="inline-flex items-center justify-center gap-3 bg-gray-600 text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
-                               <i data-feather="message-square" class="w-6 h-6"></i>
-                               SMS
-                            </a>
+                            <div class="mt-6 text-center">
+                                <button type="submit" class="bg-[var(--kepas-green)] text-white font-poppins font-bold py-3 px-8 rounded-lg hover:bg-[var(--kepas-green-hover)] transition-all duration-300 transform hover:scale-105">Send Message</button>
+                            </div>
+
+                            <div class="mt-12 text-center pt-8 border-t border-gray-200">
+                                <p class="font-poppins text-lg text-gray-700 mb-6">Prefer a different way to connect?</p>
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 439.6c-33.8 0-66.3-9.1-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+                                        WhatsApp
+                                    </a>
+                                    <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-[#0088cc] text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"></path></svg>
+                                       Telegram
+                                    </a>
+                                    <a href="sms:+254700000000" class="inline-flex items-center justify-center gap-3 bg-gray-600 text-white font-poppins font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square w-6 h-6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                       SMS
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Layout for Returning Users (RedNote style) -->
+                    <div id="returning-user-view" style="display: none;">
+                        <!-- New Composer Card for Returning Users -->
+                        <div id="composer-card" class="rednote-card p-4 flex gap-4 mb-8">
+                            <div id="composer-avatar" class="rednote-avatar self-start"></div>
+                            <div class="w-full">
+                                <textarea id="composer-message" class="composer-textarea" rows="2" placeholder="What's on your mind today?"></textarea>
+                                <p class="text-xs text-gray-500 mt-2 px-1 flex items-center">
+                                    <i data-feather="lock" class="w-3 h-3 inline-block mr-1"></i>
+                                    <span>Your messages are private and only visible to you.</span>
+                                </p>
+                                <div class="text-right mt-2 border-t border-gray-700 pt-4">
+                                    <button id="post-btn" type="button" class="rednote-button py-2 px-6">Post</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
+                    <div id="submission-filters" class="rednote-tabs" style="display: none;">
+                        <button class="rednote-tab active" data-filter="All">All</button>
+                        <button class="rednote-tab" data-filter="Reviewing...">Reviewing</button>
+                        <button class="rednote-tab" data-filter="Accepted">Accepted</button>
+                        <button class="rednote-tab" data-filter="Rejected">Rejected</button>
+                    </div>
+                    <div id="previous-submissions" class="mt-6 space-y-6"></div>
+                    <div id="no-results-message" class="rednote-card p-5 text-center text-gray-400" style="display: none;">Nothing to show in this category.</div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            // --- 1. Element Declarations ---
+                            const contactContainer = document.getElementById('contact-container');
+                            const contactForm = document.getElementById('contact-form');
+                            const newUserView = document.getElementById('new-user-view');
+                            const returningUserView = document.getElementById('returning-user-view');
+                            const nameInput = document.getElementById('name');
+                            const emailInput = document.getElementById('email');
+                            const phoneInput = document.getElementById('phone');
+                            const messageTextarea = document.getElementById('message');
+                            const composerAvatar = document.getElementById('composer-avatar');
+                            const composerMessage = document.getElementById('composer-message');
+                            const postBtn = document.getElementById('post-btn');
+                            const submissionsContainer = document.getElementById('previous-submissions');
+                            const filterContainer = document.getElementById('submission-filters');
+                            let userIdentifier = localStorage.getItem('userIdentifier');
+
+                            // --- 2. Helper Functions ---
+                            const generateAvatarColor = (name) => {
+                                if (!name) return '#4A5568';
+                                let hash = 0;
+                                for (let i = 0; i < name.length; i++) {
+                                    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+                                }
+                                const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
+                                return "#" + "00000".substring(0, 6 - c.length) + c;
+                            };
+
+                            // --- 3. Main Display Logic ---
+                            const displaySubmissions = (submissions) => {
+                                if (submissions && submissions.length > 0) {
+                                    // --- Returning User View ---
+                                    newUserView.style.display = 'none';
+                                    returningUserView.style.display = 'block';
+                                    filterContainer.style.display = 'flex';
+                                    contactContainer.classList.add('rednote-bg');
+
+                                    const latestSubmission = submissions[submissions.length - 1];
+                                    nameInput.value = latestSubmission.name;
+                                    emailInput.value = latestSubmission.email;
+                                    phoneInput.value = latestSubmission.phone;
+
+                                    composerAvatar.style.backgroundColor = generateAvatarColor(latestSubmission.name);
+                                    composerAvatar.textContent = latestSubmission.name.charAt(0);
+                                    composerMessage.placeholder = `What’s on your mind today, ${latestSubmission.name.split(' ')[0]}?`;
+
+                                    const mockAdminStatuses = ['Accepted', 'Rejected', 'Reviewing...'];
+                                    const submissionsHTML = submissions.reverse().map((s, index) => {
+                                        // Newest submission is always 'Reviewing...'. Older ones get varied statuses to simulate admin review.
+                                        if (index === 0) {
+                                            s.status = 'Reviewing...';
+                                        } else {
+                                            s.status = mockAdminStatuses[(index - 1) % mockAdminStatuses.length];
+                                        }
+                                        let cardBorderClass = s.status === 'Accepted' ? 'border-accepted' : s.status === 'Rejected' ? 'border-rejected' : '';
+                                        return `
+                                            <div class="rednote-card p-5 flex gap-4 ${cardBorderClass}" data-status="${s.status}">
+                                                <div class="rednote-avatar" style="background-color: ${generateAvatarColor(s.name)}">${s.name.charAt(0)}</div>
+                                                <div class="w-full">
+                                                    <div class="flex justify-between items-center">
+                                                        <div>
+                                                            <p class="font-bold text-white">${s.name}</p>
+                                                            <p class="text-sm text-gray-400">@${s.name.toLowerCase().replace(/\s+/g, '')} · ${new Date(s.created_at).toLocaleDateString()}</p>
+                                                        </div>
+                                                        <div class="relative">
+                                                            <button class="dropdown-toggle text-gray-400 hover:text-white"><i data-feather="more-horizontal" class="w-5 h-5"></i></button>
+                                                            <div class="dropdown-menu absolute right-0 mt-2 w-40 rounded-lg shadow-lg z-10 hidden" style="background-color: #2d3748;">
+                                                                <a href="#" class="edit-btn flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-600 rounded-t-lg" data-submission-id="${s.id}"><i data-feather="edit" class="w-4 h-4"></i><span>Edit</span></a>
+                                                                <a href="#" class="delete-btn flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-gray-600 rounded-b-lg" data-submission-id="${s.id}"><i data-feather="trash-2" class="w-4 h-4"></i><span>Delete</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="mt-3 text-gray-300">${s.message}</p>
+                                                    ${(() => {
+                                                        const visualSteps = ['Received', 'Reviewing...', 'Implementation'];
+                                                        const isFinalState = s.status === 'Accepted' || s.status === 'Rejected';
+                                                        let stepsHTML = '<div class="flex items-center gap-2 mt-4">';
+                                                        visualSteps.forEach((stepName, index) => {
+                                                            let statusClass = 'dormant', icon = 'circle', text = stepName;
+                                                            if (s.status === 'Received' && index === 0) statusClass = 'completed';
+                                                            if (s.status === 'Reviewing...' && index <= 1) statusClass = index === 0 ? 'completed' : 'active';
+                                                            if (isFinalState) statusClass = 'completed';
+                                                            if (statusClass === 'completed') icon = 'check-circle';
+                                                            if (statusClass === 'active') icon = 'loader';
+                                                            if (isFinalState && stepName === 'Reviewing...') text = 'Reviewed';
+                                                            if (stepName === 'Implementation') {
+                                                                if (s.status === 'Accepted') { statusClass = 'accepted'; icon = 'check-circle'; text = 'Accepted'; }
+                                                                else if (s.status === 'Rejected') { statusClass = 'rejected'; icon = 'x-circle'; text = 'Rejected'; }
+                                                            }
+                                                            stepsHTML += `<div class="status-step ${statusClass}"><i data-feather="${icon}" class="w-4 h-4"></i><span>${text}</span></div>`;
+                                                        });
+                                                        return stepsHTML + '</div>';
+                                                    })()}
+                                                </div>
+                                            </div>`;
+                                    }).join('');
+                                    submissionsContainer.innerHTML = submissionsHTML;
+                                    feather.replace();
+                                } else {
+                                    // --- New User View ---
+                                    newUserView.style.display = 'block';
+                                    returningUserView.style.display = 'none';
+                                    filterContainer.style.display = 'none';
+                                    contactContainer.classList.remove('rednote-bg');
+                                }
+                            };
+
+                            // --- 4. API/Data Functions ---
+                            const fetchPreviousSubmissions = async () => {
+                                if (!userIdentifier) {
+                                    userIdentifier = 'user-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                                    localStorage.setItem('userIdentifier', userIdentifier);
+                                }
+                                try {
+                                    const response = await fetch(`/api/messages/${userIdentifier}`);
+                                    displaySubmissions(response.ok ? await response.json() : []);
+                                } catch (error) {
+                                    console.error('Error fetching submissions:', error);
+                                    displaySubmissions([]);
+                                }
+                            };
+
+                            // --- 5. Event Listeners ---
+                            contactForm.addEventListener('submit', async (e) => {
+                                e.preventDefault();
+                                const data = { identifier: userIdentifier, name: nameInput.value, email: emailInput.value, phone: phoneInput.value, message: messageTextarea.value };
+                                try {
+                                    const response = await fetch('/api/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+                                    if (!response.ok) throw new Error('Submission failed');
+                                    fetchPreviousSubmissions();
+                                    Toastify({ text: "Message sent successfully!", duration: 3000, gravity: "top", position: "right", style: { background: "#4CAF50" } }).showToast();
+                                } catch (error) {
+                                    console.error('Submission error:', error);
+                                    Toastify({ text: "Failed to send message.", duration: 3000, gravity: "top", position: "right", style: { background: "#f44336" } }).showToast();
+                                }
+                            });
+
+                            postBtn.addEventListener('click', async () => {
+                                const message = composerMessage.value.trim();
+                                if (!message) {
+                                    Toastify({ text: "Message cannot be empty.", duration: 3000, gravity: "top", position: "right", style: { background: "#f44336" } }).showToast();
+                                    return;
+                                }
+                                const data = { identifier: userIdentifier, name: nameInput.value, email: emailInput.value, phone: phoneInput.value, message: message };
+                                try {
+                                    const response = await fetch('/api/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+                                    if (!response.ok) throw new Error('Submission failed');
+                                    composerMessage.value = '';
+                                    fetchPreviousSubmissions();
+                                    Toastify({ text: "Message posted successfully!", duration: 3000, gravity: "top", position: "right", style: { background: "#4CAF50" } }).showToast();
+                                } catch (error) {
+                                    console.error('Submission error:', error);
+                                    Toastify({ text: "Failed to post message.", duration: 3000, gravity: "top", position: "right", style: { background: "#f44336" } }).showToast();
+                                }
+                            });
+
+                            filterContainer.addEventListener('click', (e) => {
+                                if (e.target.matches('.rednote-tab')) {
+                                    filterContainer.querySelector('.active').classList.remove('active');
+                                    e.target.classList.add('active');
+                                    const filter = e.target.dataset.filter;
+                                    let visibleCount = 0;
+                                    document.querySelectorAll('#previous-submissions .rednote-card').forEach(card => {
+                                        const isVisible = (filter === 'All' || card.dataset.status === filter);
+                                        card.style.display = isVisible ? 'flex' : 'none';
+                                        if (isVisible) visibleCount++;
+                                    });
+
+                                    const noResultsMessage = document.getElementById('no-results-message');
+                                    noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+                                }
+                            });
+
+                            document.addEventListener('click', (e) => {
+                                const dropdownToggle = e.target.closest('.dropdown-toggle');
+                                if (dropdownToggle) {
+                                    const menu = dropdownToggle.nextElementSibling;
+                                    const isMenuOpen = !menu.classList.contains('hidden');
+                                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
+                                    if (!isMenuOpen) menu.classList.remove('hidden');
+                                } else if (!e.target.closest('.dropdown-menu')) {
+                                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
+                                }
+                                if (e.target.closest('.edit-btn')) { e.preventDefault(); console.log('Edit:', e.target.closest('.edit-btn').dataset.submissionId); }
+                                if (e.target.closest('.delete-btn')) { e.preventDefault(); console.log('Delete:', e.target.closest('.delete-btn').dataset.submissionId); }
+                            });
+
+                            // --- 6. Initial Load ---
+                            fetchPreviousSubmissions();
+                        });
+                    </script>
+
                 </div>
             </div>
         </section>
